@@ -232,12 +232,22 @@
     <div class="login-box">
         <h2>URL</h2>
         <form>
+              <div class="user-box">
+                <input type="text" id="user" name="" required="">
+                <label>UserName</label>
+            </div>
+
+            <div class="user-box">
+                <input type="password" id="password" name="" required="">
+                <label>Password</label>
+            </div>
+            
             <div class="user-box">
                 <input type="text" id="url" name="" required="" value="https://qhuy23.github.io/exportdata/e?/u?/Tr%C6%B0%E1%BB%9Dng%20Ngo%E1%BA%A1i%20ng%E1%BB%AF%20v%C3%A0%20du%20l%E1%BB%8Bch%20-%20HaUI.html">
                 <label>Input here</label>
             </div>
 
-            <a onclick="urlStatus()">
+            <a onclick="login()">
              Submit
             </a>
         </form>
@@ -276,6 +286,8 @@
 
 
     <script>
+        var u = 'admin';
+        var p = '123';
         var status = 0;
 
 
@@ -307,15 +319,19 @@
             $("#export").css("display", "block");
         }
 
-        function urlStatus() {
+        function login() {
+            var user = $('#user').val().toLowerCase();
+            var password = $('#password').val();
             var url = $('#url').val();
-            // var url = './e4/u5/Trường Ngoại ngữ và du lịch - HaUI.html';
-            $("#myFrame").attr("src", url);
+            if (user == u || password == p) {
+                // var url = './e4/u5/Trường Ngoại ngữ và du lịch - HaUI.html';
+                $("#myFrame").attr("src", url);
 
-            var delayInMilliseconds = 2000;
-            setTimeout(function() {
-                main();
-            }, delayInMilliseconds);
+                var delayInMilliseconds = 500;
+                setTimeout(function() {
+                    main();
+                }, delayInMilliseconds);
+            }
 
         }
 
