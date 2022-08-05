@@ -292,12 +292,12 @@
                 var example = data[i].children[4].innerText;
 
                 var word_export = word + '( ' + ipa + ')'
-                var example_export='example: ' + example;
+                var example_export=' Example: ' + example;
                 var mean_export = mean ;
 
                 $("#export").append(
                     '<tr>' +
-                    '<td>' + word_export +'<p> '+ example_export +'</p>'+ '</td>' +
+                    '<td>' + word_export +'<p>'+ example_export +'</p>'+ '</td>' +
                     '<td>' + mean_export + '</td>' +
                     '</tr>'
                 );
