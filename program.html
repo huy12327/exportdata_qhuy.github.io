@@ -299,6 +299,7 @@
 
             for (i = 0; i < data.length; i++) {
                 var word = data[i].children[1].innerText;
+                word = word.replace(/\s/g, '');
                 var ipa = data[i].children[2].innerText;
                 var mean = data[i].children[3].innerText;
                 var example = data[i].children[4].innerText;
