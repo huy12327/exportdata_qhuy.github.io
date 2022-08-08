@@ -58,6 +58,7 @@
         width: 100%;
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
+        margin: 10px 10px;
     }
     
     #customers #word,
@@ -78,7 +79,8 @@
     }
     
     #customers tr:hover {
-        background-color: linear-gradient(#141e30, #243b55);
+        /* background-color: linear-gradient(#141e30, #243b55); */
+        background-color: #0b111b;
     }
     
     #customers th {
@@ -258,6 +260,10 @@
 
     </div>
 
+    <div id="nofitication">
+
+    </div>
+
 
     <table id="customers" class="common" style="display: none;padding-bottom: 35px;">
         <tr>
@@ -314,7 +320,7 @@
                 );
             }
 
-            $("#customers").css("display", "none");
+            $("#customers").css("display", "table");
             $("#export").css("display", "block");
         }
 
@@ -323,8 +329,6 @@
             var password = $('#password').val();
             var url = $('#url').val();
             if (user == u || password == p) {
-                $("#myFrame").attr("src", url);
-
                 main();
             }
 
@@ -345,12 +349,20 @@
 
         function back() {
             status = 0;
-            $("#customers");
+            $("#customers").css("display", "none");
             $("#export").css("display", "none");
             showHide();
         }
 
         function loadData() {
+            var nofi = 'Please wait!!! The data is tranfering';
+            $('#nofitication').append(nofi);
+            $('#nofitication').css({
+                "font-size": "langer",
+                "color": "red",
+                "padding": "8px"
+            });
+
             var iframe = document.getElementById("url");
             $('#data').css("display", "none");
             $('#data').load(iframe.value, function(responseTxt, statusTxt, xhr) {
@@ -371,8 +383,13 @@
 
         function appendData() {
             var elmnt = document.getElementsByClassName("ditem");
-            console.log(elmnt);
-            $("#customers").css("display", "block");
+            $('#nofitication').empty();
+
+
+            $("#customers").css({
+                "display": "table",
+                "margin": "0px"
+            });
 
             console.log(elmnt);
             for (i = 0; i < elmnt.length; i++) {
