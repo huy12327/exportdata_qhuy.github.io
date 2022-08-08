@@ -232,7 +232,7 @@
     <div class="login-box">
         <h2>URL</h2>
         <form>
-              <div class="user-box">
+            <div class="user-box">
                 <input type="text" id="user" name="" required="">
                 <label>UserName</label>
             </div>
@@ -241,11 +241,12 @@
                 <input type="password" id="password" name="" required="">
                 <label>Password</label>
             </div>
-            
+
             <div class="user-box">
-                <input type="text" id="url" name="" required="" value="https://qhuy23.github.io/exportdata/e3/u?.html">
+                <input type="text" id="url" name="" required="" value="https://qhuy23.github.io/exportdata/e?/u?/Trường Ngoại ngữ và du lịch - HaUI.html">
                 <label>Input here</label>
             </div>
+            <p style="font-size:smaller; color: red;">https://qhuy23.github.io/exportdata/e3/u?.html</p>
 
             <a onclick="login()">
              Submit
@@ -253,11 +254,9 @@
         </form>
     </div>
 
+    <div id="data">
 
-
-
-
-
+    </div>
 
 
     <table id="customers" class="common" style="display: none;padding-bottom: 35px;">
@@ -278,7 +277,6 @@
     </table>
 
 
-    <iframe id="myFrame" src="" style="height:380px;width:100%;z-index: 0;display: none; "></iframe>
 
 
     <button class="button-24" id="off" role="button" style="display: none;" onclick="back()"><h1>BACK</h1></button>
@@ -305,13 +303,13 @@
                 var example = data[i].children[4].innerText;
 
                 var word_export = word + '( ' + ipa + ')'
-                var example_export=' Example: ' + example;
-                var mean_export = mean ;
+                var example_export = ' Example: ' + example;
+                var mean_export = mean;
 
                 $("#export").append(
                     '<tr>' +
-                    '<td>' + word_export +'<br>'+ example_export + '</td>' +
-                    '<td>' + mean_export+';'+ '</td>' +
+                    '<td>' + word_export + '<br>' + example_export + '</td>' +
+                    '<td>' + mean_export + ';' + '</td>' +
                     '</tr>'
                 );
             }
@@ -325,13 +323,9 @@
             var password = $('#password').val();
             var url = $('#url').val();
             if (user == u || password == p) {
-                // var url = './e4/u5/Trường Ngoại ngữ và du lịch - HaUI.html';
                 $("#myFrame").attr("src", url);
 
-                var delayInMilliseconds = 2000;
-//                 setTimeout(function() {
-                    main();
-//                 }, delayInMilliseconds);
+                main();
             }
 
         }
@@ -351,18 +345,33 @@
 
         function back() {
             status = 0;
-            $("#customers").css("display", "none");
+            $("#customers");
             $("#export").css("display", "none");
             showHide();
+        }
+
+        function loadData() {
+            var iframe = document.getElementById("url");
+            $('#data').css("display", "none");
+            $('#data').load(iframe.value, function(responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success")
+                    appendData();
+                if (statusTxt == "error")
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+            });
         }
 
         function main() {
             $(".data").empty();
             status = 1;
             showHide();
-            var iframe = document.getElementById("myFrame");
+            loadData();
 
-            var elmnt = iframe.contentWindow.document.getElementsByClassName("ditem");
+        }
+
+        function appendData() {
+            var elmnt = document.getElementsByClassName("ditem");
+            console.log(elmnt);
             $("#customers").css("display", "block");
 
             console.log(elmnt);
@@ -388,7 +397,6 @@
                     '</tr>'
                 );
             }
-
         }
     </script>
 
