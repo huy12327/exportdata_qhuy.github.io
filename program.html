@@ -225,6 +225,10 @@
         animation: btn-anim4 1s linear infinite;
         animation-delay: .75s
     }
+    
+    .btn {
+        padding: 20px 20px;
+    }
 </style>
 </head>
 
@@ -284,9 +288,11 @@
 
 
 
+    <div class="btn">
+        <button class="button-24" id="off" role="button" style="display: none;" onclick="back()"><h1>BACK</h1></button>
+        <button class="button-24" id="export_btn" role="button" style="display: none;float: right;" onclick="exportdata()"><h1>EXPORT</h1></button>
+    </div>
 
-    <button class="button-24" id="off" role="button" style="display: none;" onclick="back()"><h1>BACK</h1></button>
-    <button class="button-24" id="export_btn" role="button" style="display: none;float: right;" onclick="exportdata()"><h1>EXPORT</h1></button>
 
 
     <script>
