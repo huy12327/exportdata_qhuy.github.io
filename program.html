@@ -299,8 +299,14 @@
         var u = 'admin';
         var p = '123';
         var status = 0;
+        
+        
 
-
+        function uppercaseFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+            
+        
         function exportdata() {
             var data = [];
             data = document.getElementsByClassName('data');
@@ -314,9 +320,9 @@
                 var mean = data[i].children[3].innerText;
                 var example = data[i].children[4].innerText;
 
-                var word_export = word + '( ' + ipa + ')'
+                var word_export = uppercaseFirstLetter(word + '( ' + ipa + ')');
                 var example_export = ' Example: ' + example;
-                var mean_export = mean;
+                var mean_export = uppercaseFirstLetter(mean);
 
                 $("#export").append(
                     '<tr>' +
@@ -399,15 +405,15 @@
 
             console.log(elmnt);
             for (i = 0; i < elmnt.length; i++) {
-                var word = elmnt[i].children[0].outerText;
+                var word = uppercaseFirstLetter(elmnt[i].children[0].outerText);
                 var ipa = elmnt[i].children[1].outerText;
-                var mean = elmnt[i].children[2].outerText;
-                var example = elmnt[i].children[4].outerText;
+                var mean = uppercaseFirstLetter(elmnt[i].children[2].outerText);
+                var example = uppercaseFirstLetter(elmnt[i].children[4].outerText);
                 if (example == "") {
-                    var example = elmnt[i].children[5].outerText;
+                    var example = uppercaseFirstLetter(elmnt[i].children[5].outerText);
                 }
                 if (example == "") {
-                    var example = elmnt[i].children[6].outerText;
+                    var example = uppercaseFirstLetter(elmnt[i].children[6].outerText);
                 }
 
                 $("#customers").append(
