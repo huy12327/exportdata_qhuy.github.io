@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./jquery.min.js"></script>
+    <script src="./core.js"></script>
+    <script src="./cipher-core.js"></script>
+    <script src="./aes.js"></script>
+    <script src="./tripledes.js"></script>
+
+    <script src="./enc-base64.js"></script>
     <title>Get Vocabulary From Eop</title>
 </head>
 <style>
@@ -296,17 +302,24 @@
 
 
     <script>
-        var u = 'admin';
-        var p = '123';
         var status = 0;
-        
-        
+        var arrAccount = [];
+
+        function encrypted(text) {
+            var key = CryptoJS.enc.Base64.parse("#base64Key#");
+            var iv = CryptoJS.enc.Base64.parse("#base64IV#");
+
+            var encrypted = CryptoJS.AES.encrypt(text, key, {
+                iv: iv
+            });
+            return encrypted.toString();
+        };
 
         function uppercaseFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
-            
-        
+
+
         function exportdata() {
             var data = [];
             data = document.getElementsByClassName('data');
@@ -315,13 +328,13 @@
 
             for (i = 0; i < data.length; i++) {
                 var word = data[i].children[1].innerText;
-//                 word = word.replace(/\s/g, '');
+                // word = word.replace(/\s/g, '');
                 var ipa = data[i].children[2].innerText;
                 var mean = data[i].children[3].innerText;
                 var example = data[i].children[4].innerText;
 
                 var word_export = uppercaseFirstLetter(word + '( ' + ipa + ')');
-                var example_export = '( Example: ' + example +')';
+                var example_export = '( Example: ' + example + ')';
                 var mean_export = uppercaseFirstLetter(mean);
 
                 $("#export").append(
@@ -336,13 +349,26 @@
             $("#export").css("display", "block");
         }
 
+        function GetAccountApi(userName, password) {
+
+            $.get('https://62f8837ce0564480352937a4.mockapi.io/Account', function(data, statuts) {
+                arrAccount = data;
+
+                arrAccount.forEach(element => {
+                    if (element.userName == userName && element.password == password) {
+                        main();
+                    }
+                });
+            })
+        }
+
         function login() {
             var user = $('#user').val().toLowerCase();
-            var password = $('#password').val();
+            var password = encrypted($('#password').val());
             var url = $('#url').val();
-            if (user == u || password == p) {
-                main();
-            }
+
+            GetAccountApi(user, password)
+
 
         }
 
@@ -403,7 +429,6 @@
                 "margin": "0px"
             });
 
-            console.log(elmnt);
             for (i = 0; i < elmnt.length; i++) {
                 var word = uppercaseFirstLetter(elmnt[i].children[0].outerText);
                 var ipa = elmnt[i].children[1].outerText;
