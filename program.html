@@ -413,7 +413,9 @@
             $('#container').css("display", "block");
             $('#login').css("display", "none");
 
-            setTimeout(() => {
+            //myTimeout = setTimeout(function, milliseconds);
+
+            const mytimeout = setTimeout(() => {
                 $('#container').css("display", "none");
                 $('#login').css("display", "inline-block");;
                 clearNofi();
@@ -424,13 +426,14 @@
                     "color": "red",
                     "padding": "8px"
                 });
-            }, "20000")
+            }, "5000")
             $.get('https://62f8837ce0564480352937a4.mockapi.io/Account', function(data, statuts) {
                 arrAccount = data;
 
                 arrAccount.forEach(element => {
                     if (element.userName == userName && element.password == password) {
                         main();
+                        clearTimeout(mytimeout);
                     }
                 });
             })
