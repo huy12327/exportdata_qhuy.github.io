@@ -137,7 +137,7 @@
         padding: 10px 0;
         font-size: 16px;
         color: #fff;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         border: none;
         border-bottom: 1px solid #fff;
         outline: none;
@@ -167,24 +167,27 @@
         position: relative;
         display: inline-block;
         padding: 20px 30px;
-        color: #03e9f4;
+        color: white;
         font-size: 16px;
         text-align: center;
         text-decoration: none;
         text-transform: uppercase;
         overflow: hidden;
         transition: .5s;
-        margin-top: 30px;
-        letter-spacing: 2px
+        margin-top: 20px;
+        letter-spacing: 2px;
+        cursor: pointer;
     }
     
     .login-box a {
         border-radius: 8px;
+        background: #00969e;
+        color: white;
     }
     
     .login-box a:hover {
-        background: #00969e;
-        color: #fff;
+        background: #0A0F18;
+        color: #03e9f4;
         border-radius: 8px;
     }
     
@@ -209,7 +212,6 @@
         height: 100%;
         background: #03e9f4;
         animation: btn-anim2 1s linear infinite;
-        animation-delay: .25s
     }
     
     .login-box a span:nth-child(3) {
@@ -234,6 +236,58 @@
     
     .btn {
         padding: 20px 20px;
+    }
+    
+    #html-spinner {
+        width: 58px;
+        height: 58px;
+        border: 5px solid white;
+        border-top: 5px solid #0A0F18;
+        border-radius: 50%;
+    }
+    
+    #html-spinner {
+        -webkit-transition-property: -webkit-transform;
+        -webkit-animation-name: rotate;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+        -moz-transition-property: -moz-transform;
+        -moz-animation-name: rotate;
+        -moz-animation-duration: 1s;
+        -moz-animation-iteration-count: infinite;
+        -moz-animation-timing-function: linear;
+        transition-property: transform;
+        animation-name: rotate;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+    
+    @-webkit-keyframes rotate {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    
+    @-moz-keyframes rotate {
+        from {
+            -moz-transform: rotate(0deg);
+        }
+        to {
+            -moz-transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 </style>
 </head>
@@ -260,9 +314,12 @@
             </div>
             <p style="font-size:smaller; color: red;">https://qhuy23.github.io/exportdata/e3/u?.html</p>
 
-            <a onclick="login()">
-             Submit
+            <a onclick="login()" id="login">
+                Submit
             </a>
+            <div id="container">
+                <div id="html-spinner"></div>
+            </div>
         </form>
     </div>
 
@@ -304,6 +361,7 @@
     <script>
         var status = 0;
         var arrAccount = [];
+        $('#container').css("display", "none");
 
         function encrypted(text) {
             var key = CryptoJS.enc.Base64.parse("#base64Key#");
@@ -352,6 +410,8 @@
         function GetAccountApi(userName, password) {
 
             $.get('https://62f8837ce0564480352937a4.mockapi.io/Account', function(data, statuts) {
+                $('#container').css("display", "block");
+                $('#login').css("display", "none");
                 arrAccount = data;
 
                 arrAccount.forEach(element => {
@@ -412,6 +472,8 @@
         }
 
         function main() {
+            $('#container').css("display", "none");
+            $('#login').css("display", "inline-block");
             $(".data").empty();
             status = 1;
             showHide();
