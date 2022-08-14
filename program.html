@@ -407,11 +407,25 @@
             $("#export").css("display", "block");
         }
 
+
         function GetAccountApi(userName, password) {
 
+            $('#container').css("display", "block");
+            $('#login').css("display", "none");
+
+            setTimeout(() => {
+                $('#container').css("display", "none");
+                $('#login').css("display", "inline-block");;
+                clearNofi();
+                var nofi = 'error: TimeOut';
+                $('#nofitication').append(nofi);
+                $('#nofitication').css({
+                    "font-size": "langer",
+                    "color": "red",
+                    "padding": "8px"
+                });
+            }, "20000")
             $.get('https://62f8837ce0564480352937a4.mockapi.io/Account', function(data, statuts) {
-                $('#container').css("display", "block");
-                $('#login').css("display", "none");
                 arrAccount = data;
 
                 arrAccount.forEach(element => {
@@ -419,9 +433,6 @@
                         main();
                     }
                 });
-                 $('#container').css("display", "none");
-                $('#login').css("display", "inline-block");
-                
             })
         }
 
@@ -455,7 +466,12 @@
             showHide();
         }
 
+        function clearNofi() {
+            $('#nofitication').empty();
+        }
+
         function loadData() {
+            clearNofi();
             var nofi = 'Please wait!!! The data is tranfering';
             $('#nofitication').append(nofi);
             $('#nofitication').css({
@@ -486,7 +502,7 @@
 
         function appendData() {
             var elmnt = document.getElementsByClassName("ditem");
-            $('#nofitication').empty();
+            clearNofi();
 
 
             $("#customers").css({
