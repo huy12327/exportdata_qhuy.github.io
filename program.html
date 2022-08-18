@@ -289,6 +289,18 @@
             transform: rotate(360deg);
         }
     }
+    /* Chrome, Safari, Edge, Opera */
+    
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    /* Firefox */
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 </style>
 </head>
 
@@ -308,11 +320,22 @@
                 <label>Password</label>
             </div>
 
-            <div class="user-box">
+            <div class="user-box" style="display: inline;padding: 7px 0px;">
+                <input type="number" id="course" name="" required="" style="width: 49%;">
+                <label>The Course</label>
+            </div>
+            <div class="user-box" style="display: inline;padding: 7px 0px;">
+                <input type="number" id="unit" name="" required="" style="width: 49%;padding: 10px 0px;">
+                <label>The Unit</label>
+            </div>
+
+            <!-- <div class="user-box">
                 <input type="text" id="url" name="" required="" value="https://qhuy23.github.io/exportdata/e?/u?.html">
                 <label>Input here</label>
-            </div>
-            <p style="font-size:smaller; color: red;">Mày thay trực tiếp đi t đổi rồi đấy, m thay "e?" bằng "e3" hoặc "e4" nha còn chỗ "u?" thì thay bằng Unit cần</p>
+                <input type="text" id="course" placeholder="If you want english 4 input 4">
+                <label>The Course</label>
+            </div> -->
+            <p style="font-size:smaller; color: red;">Chỗ Course thì điền 3 hoặc 4 còn unit thì điền 1->7</p>
 
             <a onclick="login()" id="login">
                 Submit
@@ -482,10 +505,14 @@
                 "color": "red",
                 "padding": "8px"
             });
+            var course = $('#course').val();
+            var unit = $('#unit').val();
 
-            var iframe = document.getElementById("url");
+            //https://qhuy23.github.io/exportdata/e?/u?.html
+            var url = `https://qhuy23.github.io/exportdata/e${course}/u${unit}.html`;
+            console.log(url);
             $('#data').css("display", "none");
-            $('#data').load(iframe.value, function(responseTxt, statusTxt, xhr) {
+            $('#data').load(url, function(responseTxt, statusTxt, xhr) {
                 if (statusTxt == "success")
                     appendData();
                 if (statusTxt == "error")
