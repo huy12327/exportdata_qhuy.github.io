@@ -415,8 +415,9 @@
                 var example = data[i].children[4].innerText;
     
                 var ipa_export=ipa.replace('/','');
+                var ipa_export_2=ipa_export.replace('/','');
                 var word_export = uppercaseFirstLetter(word );
-                var example_export = ipa_export + '( Example: ' + example + ')';
+                var example_export=`( ${ipa_export_2} Example: ${example})`
                 var mean_export = uppercaseFirstLetter(mean);
 
                 $("#export").append(
